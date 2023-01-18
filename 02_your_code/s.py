@@ -4,4 +4,3 @@ def fun(plan):
     else:
         print('okk')
         
-fun('basicc')

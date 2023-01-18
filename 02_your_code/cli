@@ -1,32 +1,20 @@
+#!/bin/bash
 
-# if [ "setup" == $1 ]; then
-#     echo "Running setup"
-#     # Replace this with any commands you need to setup your code
-#     # For example:
-#     # pip install -r requirements.txt
-#     exit;
-# fi
+if [ "setup" == $1 ]; then
+    echo "Running setup"
+    python3 -m venv venv
+    pip install -r requirements.txt
+    exit;
+fi
 
-venv/bin/python 
-echo "python"
-exit;
+if [ "$1" == "upgrade" ]; then
+    echo "Upgrading plan"
+    python -c "from updatePlan import upgrade; upgrade('$2', '$3')"
 
-echo "Hello, world"
-exit;
+fi
 
+if [ "$1" == "downgrade" ]; then
+    echo "Downgrading plan"   
+    python -c "from updatePlan import downgrade; downgrade('$2', '$3')"
 
-# if [ "upgrade" == $1 ]; then
-#     echo "Upgrading with args: ${@:2}"
-#     upgrade
-#     # Use this line to call your code
-#     exit;
-# fi
-
-# if [ "downgrade" == $1 ]; then
-#     echo "Downgrading with args: ${@:2}"
-#     # Use this line to call your code
-#     exit;
-# fi
-
-# echo "Your first argument must be either 'setup', 'upgrade' or 'downgrade'"
-# exit 5;
+fi

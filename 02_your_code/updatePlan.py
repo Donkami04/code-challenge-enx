@@ -4,7 +4,7 @@ from datetime import datetime
 def upgrade(id, plan):
     
     if plan != 'free' and plan != 'basic' and plan != 'premium':
-        raise SyntaxError('Error code 2: the target subscription level is not reachable')
+        return print('Error code 2: the target subscription level is not reachable')
     
     else:
         try:
@@ -35,7 +35,7 @@ def upgrade(id, plan):
             print("Successfully changed")
             
         except:
-            raise Exception('Error code 3: other unknown error')
+            print('Error code 3: other unknown error')
            
 
 def downgrade(id, plan):
@@ -80,4 +80,5 @@ def downgrade(id, plan):
         except:
             raise Exception("Error code 3: other unknown error")
 
-upgrade('49a6307e-c261-414d-86f5-c6004bcec8ab', 'premium')
+
+# upgrade('49a6307e-c261-414d-86f5-c6004bcec8ab', 'premium')
