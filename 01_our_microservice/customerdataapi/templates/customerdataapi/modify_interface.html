@@ -1,0 +1,19 @@
+<h1>Hello</h1>
+
+<form action="{% url 'modify_level2'  %}" method="post">
+    {% csrf_token %}
+    <label for="id">Customer Id</label>
+        <select id="id" name="id">
+            {% for customer in customers_list  %}
+            <option value="{{ customer.pk }}">{{ customer.id }}</option>
+            {% endfor %}
+        </select>
+    <label for="subscription">Subscription</label>
+    <select name="subscription" id="subscription">
+        <option value="premium">premium</option>
+        <option value="basic">basic</option>
+        <option value="free">free</option>
+    </select>
+    
+    <p><button type="submit">  Change subscription </button></p>
+</form>
