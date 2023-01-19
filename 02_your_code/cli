@@ -1,9 +1,13 @@
 #!/bin/bash
 
+# Before create a virtual environment
+
 if [ "setup" == $1 ]; then
     echo "Running setup"
-    python3 -m venv venv
     pip install -r requirements.txt
+    # The following code run the test and make a coverage report
+    pytest
+    coverage report
     exit;
 fi
 
