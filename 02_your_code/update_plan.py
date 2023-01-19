@@ -103,5 +103,3 @@ def up_or_down(current_plan, new_plan):
     elif new_plan_value < current_plan_value:
         return False
 
-#upgrade('e02deb01-d7a4-430c-9461-2674bc1e935a', 'premium')
-downgrade('e02deb01-d7a4-430c-9461-2674bc1e935a', 'free')

@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.8"
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+
+# command to run tests
+script:
+  - pytest # or other command to run your test suite
+  - flake8 update_plan.py  # command to run static analysis and check style

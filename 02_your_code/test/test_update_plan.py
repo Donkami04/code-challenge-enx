@@ -1,5 +1,6 @@
 import requests
 import pytest
+import subprocess
 
     
 def test_if_the_get_request_works_to_the_microservice():
@@ -9,26 +10,43 @@ def test_if_the_get_request_works_to_the_microservice():
     response = requests.get(url)
     assert response.status_code == 200
 
-def test_upgrade_plan_customer():
+def test_upgrade_plan_customer_to_basic():
+    id = '49a6307e-c261-414d-86f5-c6004bcec8ab'
+        
+    subprocess.run(f'cd ../02_your_code; ./cli upgrade {id} basic',
+    shell=True, check=True,
+    executable='/bin/bash')
     
-    id = '49a6307e-c261-414d-86f5-c6004bcec8ab' 
-    url = f'http://localhost:8010/api/v1/customerdata/{id}/'   
-    response = requests.get(url)
+    response = requests.get(f'http://localhost:8010/api/v1/customerdata/{id}/')
     customer = response.json()
-    customer["data"]["SUBSCRIPTION"] = 'premium'
-    response = requests.put(url, json=customer)
+    data = customer['data']
+
+    
     assert response.status_code == 200
+    assert customer['id'] == id
+    assert data['SUBSCRIPTION'] == 'basic'
+    assert "DOWNGRADE_DATE" not in data
+    assert "UPGRADE_DATE" in data
     
-def test_downgrade_plan_customer():
-    
+def test_downgrade_plan_customer_to_free():
     id = '49a6307e-c261-414d-86f5-c6004bcec8ab' 
-    url = f'http://localhost:8010/api/v1/customerdata/{id}/'   
-    response = requests.get(url)
-    customer = response.json()
-    customer["data"]["SUBSCRIPTION"] = 'free'
-    response = requests.put(url, json=customer)
-    assert response.status_code == 200
     
+    subprocess.run(f'cd ../02_your_code; ./cli downgrade {id} free',
+    shell=True, check=True,
+    executable='/bin/bash')  
+    
+    response = requests.get(f'http://localhost:8010/api/v1/customerdata/{id}/' )
+    customer = response.json()
+    data = customer['data']
+    
+    assert customer['id'] == id
+    assert data['SUBSCRIPTION'] == 'free'
+    assert "DOWNGRADE_DATE" in data
+    assert "UPGRADE_DATE" not in data
+    
+    for feat in data['ENABLED_FEATURES'].values():
+        assert feat == False
+        
 def is_the_plan_reachable(plan):
     avaible_plans = ['free', 'basic', 'premium']
     if plan not in avaible_plans:
@@ -44,20 +62,3 @@ def test_id_does_not_exists():
     response = requests.get(url)
     assert response.status_code == 404
     
-def test_downgrade_to_free_customer_plan_enabled_features_are_false():
-    id = '49a6307e-c261-414d-86f5-c6004bcec8ab' 
-    url = f'http://localhost:8010/api/v1/customerdata/{id}/' 
-    plan = 'free'  
-    response = requests.get(url)
-    customer = response.json()
-    data = customer["data"]
-    data["SUBSCRIPTION"] = plan
-    assert data['SUBSCRIPTION'] == 'free'
-    assert "DOWNGRADE_DATE" in data
-    assert "UPGRADE_DATE" not in data
-
-    for feat in data['ENABLED_FEATURES'].values():
-        assert feat == False
-        
-    response = requests.put(url, json=customer)
-    assert response.status_code == 200
