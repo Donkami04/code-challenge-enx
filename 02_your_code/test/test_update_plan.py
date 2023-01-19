@@ -50,14 +50,14 @@ def test_downgrade_to_free_customer_plan_enabled_features_are_false():
     plan = 'free'  
     response = requests.get(url)
     customer = response.json()
-    customer["data"]["SUBSCRIPTION"] = plan
-    if plan == 'free':
-        customer['data']['ENABLED_FEATURES']['CERTIFICATES_INSTRUCTOR_GENERATION'] = False
-        customer['data']['ENABLED_FEATURES']['ENABLE_COURSEWARE_SEARCH'] = False
-        customer['data']['ENABLED_FEATURES']['ENABLE_EDXNOTES'] = False
-        customer['data']['ENABLED_FEATURES']['ENABLE_COURSE_DISCOVERY'] = False
-        customer['data']['ENABLED_FEATURES']['ENABLE_DASHBOARD_SEARCH'] = False
-        customer['data']['ENABLED_FEATURES']['INSTRUCTOR_BACKGROUND_TASKS'] = False
+    data = customer["data"]
+    data["SUBSCRIPTION"] = plan
+    assert data['SUBSCRIPTION'] == 'free'
+    assert "DOWNGRADE_DATE" in data
+    assert "UPGRADE_DATE" not in data
+
+    for feat in data['ENABLED_FEATURES'].values():
+        assert feat == False
         
     response = requests.put(url, json=customer)
     assert response.status_code == 200

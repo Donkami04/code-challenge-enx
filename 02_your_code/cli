@@ -8,13 +8,13 @@ if [ "setup" == $1 ]; then
 fi
 
 if [ "$1" == "upgrade" ]; then
-    echo "Upgrading plan"
+    echo " ### Upgrading plan ###"
     python -c "from update_plan import upgrade; upgrade('$2', '$3')"
 
 fi
 
 if [ "$1" == "downgrade" ]; then
-    echo "Downgrading plan"   
+    echo "### Downgrading plan ###"   
     python -c "from update_plan import downgrade; downgrade('$2', '$3')"
 
 fi
