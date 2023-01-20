@@ -14,7 +14,7 @@ def upgrade(id, new_subscription):
     Args:
         id ( UUID ): Unique code to identify each customer 
         new_subscription ( Str ) : It is the new desired subscription, only allow free, basic or premium
-        
+      
     Raises Error:
         Error Code 1: Bad id or does not exist.
         Error Code 2: Bad subscription option or does not exist.
