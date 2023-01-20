@@ -29,12 +29,15 @@ jobs:
         make migrate
         python manage.py loaddata customerdataapi/initial_data.json
         make run &
-    - name: Setup the cli and run my unit tests
+    - name: Setup the cli
       run: |
         cd 02_your_code
         ./cli setup
-        pytest
     - name: Run cli tests
       run: |
         cd 03_end_to_end_testing
+        pytest
+    - name: Run my Unit Tests
+      run: |
+        cd 02_your_code
         pytest
