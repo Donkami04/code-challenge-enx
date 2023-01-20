@@ -42,3 +42,7 @@ jobs:
         cd 02_your_code
         coverage run -m pytest
         coverage report test/test_update_plan.py
+    # - name: Run flake8
+    #   run: |
+    #     cd 02_your_code
+    #     flake8 update_plan.py

@@ -1,5 +1,5 @@
 """
-Testing the upgrade/downgrade
+Testing the upgrade, downgrade and up_or_down functions
 
 """
 
@@ -72,10 +72,64 @@ def test_downgrade_subscription_customer_to_free():
 def test_id_does_not_exists():
     
     """
-    Try with and wrong Uuid and the status code should be 404
+    Try with a wrong Uuid, the status code should be 404
     """
     
     id = 'donkami'
     url = f'http://localhost:8010/api/v1/customerdata/{id}/'
     response = requests.get(url)
     assert response.status_code == 404
+
+def test_current_subscription_is_lower_than_new_subscription():
+    
+    """
+    This test try a upgrade case, where the new subscription is better
+    than the current subscription, could be return True
+    """
+    
+    new_subscription = 'premium'
+    current_subscription = 'basic'
+    
+    avaible_subscriptions = ['free', 'basic', 'premium'] 
+    
+    new_subscription_value = avaible_subscriptions.index(new_subscription)
+    current_subscription_value = avaible_subscriptions.index(current_subscription)
+
+    if new_subscription_value > current_subscription_value:
+        return True
+
+def test_current_subscription_is_lower_than_new_subscription_output():
+    
+    """
+    This test validate the output of the `test_current_subscription_is_lower_than_new_subscription`
+    """
+    
+    assert test_current_subscription_is_lower_than_new_subscription() == True
+    
+
+def test_current_subscription_is_best_than_new_subscription():
+    
+    """
+    This test try a downgrade case, where the new subscription is lower
+    than the current subscription, could be return False
+    """
+    
+    new_subscription = 'basic'
+    current_subscription = 'premium'
+    
+    avaible_subscriptions = ['free', 'basic', 'premium'] 
+    
+    new_subscription_value = avaible_subscriptions.index(new_subscription)
+    current_subscription_value = avaible_subscriptions.index(current_subscription)
+
+    if new_subscription_value < current_subscription_value:
+        return False
+
+def test_current_subscription_is_lower_than_new_subscription_output():
+    
+    """
+    This test validate the output of the `test_current_subscription_is_lower_than_new_subscription_output`
+    """
+    assert test_current_subscription_is_best_than_new_subscription() == False
+ 
+    

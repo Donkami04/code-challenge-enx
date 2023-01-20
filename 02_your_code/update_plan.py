@@ -100,8 +100,10 @@ def downgrade(id, new_subscription):
             except:
                 pass
             
-            # The for loop through each feature of ENABLED_FEATURES and, 
-            # for each iteration changes it to False
+            """
+            The below for loop through each feature of ENABLED_FEATURES and, 
+            for each iteration changes it to False
+            """
             if new_subscription == 'free':
               for feature in data['ENABLED_FEATURES']:
                 data["ENABLED_FEATURES"][feature] = False

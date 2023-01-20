@@ -15,4 +15,7 @@ class CustomerDataAPITestCase(TestCase):
         Asserts that calling the API actually works
         """
         client = APIClient()
-        client.post('/api/v1/customerdata/', {'id': '1234'}, format='json')
+        post_request = client.post('/api/v1/customerdata/', {'id': '1234', 'data':'test'}, format='json')
+        
+        self.assertEqual(post_request.status_code, 201)
+
