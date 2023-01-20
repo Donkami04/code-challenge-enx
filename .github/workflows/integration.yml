@@ -33,6 +33,10 @@ jobs:
       run: |
         cd 02_your_code
         ./cli setup
+    - name: Run unit tests
+      run: |
+        cd 02_your_code
+        pytest
     - name: Run cli tests
       run: |
         cd 03_end_to_end_testing
