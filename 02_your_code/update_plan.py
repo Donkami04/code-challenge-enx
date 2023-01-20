@@ -1,4 +1,4 @@
-# requests allow make HTTP requests
+"""requests allow make HTTP requests"""
 import requests
 
 from datetime import datetime
@@ -15,7 +15,7 @@ def upgrade(id, new_subscription):
         id ( UUID ): Unique code to identify each customer 
         new_subscription ( Str ) : It is the new desired subscription, only allow free, basic or premium
         
-    Raises:
+    Raises Error:
         Error Code 1: Bad id or does not exist.
         Error Code 2: Bad subscription option or does not exist.
         Error Code 3: (Exception) Occurs if something goes wrong with the microservice
@@ -63,7 +63,7 @@ def downgrade(id, new_subscription):
     """_summary_
     The downgrade function allows to lower a customer's subscription, create or actualize
     the date of the last downgrade and replaces the date of the last upgrade if it exists.
-    If the downgrade subscription is free turn all the ENABLED_FEATURES to False.
+    If the new subscription is free turn all the ENABLED_FEATURES to False.
     Downgrade function calls the up_or_down function which validates the new subscription.
     
     Args:
@@ -125,10 +125,11 @@ def up_or_down(current_subscription, new_subscription):
     The up_or_down function acts as an intermediary to validate that:
     - The new subscription is valid and exists.
     - The new subscription is not equal to the current subscription.
-    - It assigns numerical values to each type of subscription to confirm whether it has increased or decreased.
+    - It assigns numerical values to each type of subscription to confirm whether 
+        the new subscription has increased or decreased.
     
     Args:
-        current_subscription ( Str ): It is the current subscription of the customer .
+        current_subscription ( Str ): It is the current subscription of the customer.
         new_subscription ( Str ) : It is the new desired subscription, only allow free, basic or premium.
         
     Returns:
@@ -136,7 +137,7 @@ def up_or_down(current_subscription, new_subscription):
         True ( Boolean ) : If the new subscription is better than the current one.
         False ( Boolean ) : If the new subscription is lower than the current one.
         ( Str ): "Error code 2: the target subscription level is not reachable."
-        ( Str ): f"Error code 5: the user already has the Subscription {current_subscription}"  .   
+        ( Str ): f"Error code 5: the user already has the Subscription {current_subscription}".   
     """
     
     avaible_subscriptions = ['free', 'basic', 'premium'] 

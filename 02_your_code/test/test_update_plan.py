@@ -1,7 +1,6 @@
 """
 Testing the upgrade/downgrade
 
-Run pytest from the root directory (02_your_code)!
 """
 
 import requests
@@ -68,8 +67,8 @@ def test_downgrade_subscription_customer_to_free():
     
     """ Test that all the features are false"""
     for feat in data['ENABLED_FEATURES'].values():
-        assert feat == False
-                
+        assert feat == False 
+
 def test_id_does_not_exists():
     
     """

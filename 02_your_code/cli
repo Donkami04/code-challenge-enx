@@ -5,9 +5,6 @@
 if [ "setup" == $1 ]; then
     echo "Running setup"
     pip install -r requirements.txt
-    # The following code run the test and make a coverage report
-    pytest
-    coverage report
     exit;
 fi
 
