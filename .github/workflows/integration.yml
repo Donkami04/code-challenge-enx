@@ -40,4 +40,5 @@ jobs:
     - name: Run my Unit Tests
       run: |
         cd 02_your_code
-        coverage run -m pytest test_update_plan.py
+        coverage run -m pytest
+        coverage report test/test_update_plan.py
