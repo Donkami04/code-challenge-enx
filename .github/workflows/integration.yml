@@ -28,7 +28,6 @@ jobs:
         cd 01_our_microservice
         make migrate
         make data
-       # python manage.py loaddata customerdataapi/initial_data.json
         make run &
     - name: Setup the cli
       run: |
