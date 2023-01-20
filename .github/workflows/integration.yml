@@ -27,15 +27,12 @@ jobs:
       run: |
         cd 01_our_microservice
         make migrate
-        make data
+        python manage.py loaddata customerdataapi/initial_data.json
         make run &
-    - name: Setup the cli
+    - name: Setup the cli and run my unit tests
       run: |
         cd 02_your_code
         ./cli setup
-    - name: Run unit tests
-      run: |
-        cd 02_your_code
         pytest
     - name: Run cli tests
       run: |

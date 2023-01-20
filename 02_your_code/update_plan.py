@@ -36,7 +36,7 @@ def upgrade(id, new_subscription):
               
         data = customer['data']
         current_subscription = data["SUBSCRIPTION"]
-        result = up_or_down(current_subscription, new_subscription) # return True, False or a string message
+        result = up_or_down(current_subscription, new_subscription) 
         if result == True:
             data['SUBSCRIPTION'] = new_subscription
             data['UPGRADE_DATE'] = datetime.now().isoformat() # .isoformat() make serializable the datetime

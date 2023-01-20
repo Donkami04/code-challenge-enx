@@ -23,10 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         cd 01_our_microservice
         pip install -r requirements/test.txt
-    - name: Lint with pylint
-      run: |
-        cd 01_our_microservice
-        pylint customerdataapi/
     - name: Ciclomatic complexity
       run: |
         cd 01_our_microservice
@@ -37,3 +33,7 @@ jobs:
         cd 01_our_microservice
         coverage run -m pytest
         coverage report -m --fail-under=100
+    - name: Lint with pylint
+      run: |
+        cd 01_our_microservice
+        pylint customerdataapi/
